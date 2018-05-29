@@ -119,7 +119,7 @@ def scrapeInnerPage(url):
 def scrapeOuterPage(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.content)
-    entryNum = 0
+    entryNum =0
     while 0 <= entryNum <= 7:
         if entryNum < 10:
             dataPiece = soup.find("span",{"id":"ctl00_cphRight_Main0102s_1_dlTree_ctl0" + str(entryNum) + "_Label1"})
@@ -127,9 +127,19 @@ def scrapeOuterPage(url):
             dataPiece = soup.find("span",{"id":"ctl00_cphRight_Main0102s_1_dlTree_ctl" + str(entryNum) + "_Label1"})
 
         link = dataPiece.find('a')
+        headerName = link.text.encode('utf8')
+        print headerName
+
+        nameList.append(headerName)
+        numberList.append(headerName)
+        phone2List.append(headerName)
+        ratingList.append(headerName)
+        addressList.append(headerName)
+        postalCodeList.append(headerName)
+        mapsUrlList.append(headerName)
 
         innerLink = "http://www.cn411.ca/" + link['href'] + "&PageSize=100&PageID=1&AreaID=416"
-        print innerLink
+
         scrapeMainPage(innerLink)
         entryNum = entryNum + 1
 
